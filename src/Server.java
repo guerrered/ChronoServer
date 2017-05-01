@@ -158,7 +158,7 @@ public class Server {
      * Possibly unneeded as this was fix for DisplayHandler which we altered
      */
     public static String HTMLtoString(){
-    	String ret = "<html><head> <script>  setTimeout(function(){window.location.reload(1);},3000);</script>     <title>Racer Record</title><link rel = \"stylesheet\" type= \"text/css\" href = \"styles.css\"></head><body><h1 title =\"Hidden(1) Bit\">Racer Record</h1><table style =\"width:100%>\"<tr><th>FirstName</th><th>LastName</th><th>BibNumber</th><th>Time</th></tr>";
+    	String ret = "<html><head>    <title>Racer Record</title><link rel = \"stylesheet\" type= \"text/css\" href = \"styles.css\"></head><body><h1 title =\"Hidden(1) Bit\">Racer Record</h1><table style =\"width:100%>\"<tr><th>FirstName</th><th>LastName</th><th>BibNumber</th><th>Time</th></tr>";
     	ret += table.getListAsHTML();
     	
     	
