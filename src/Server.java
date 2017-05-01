@@ -127,12 +127,12 @@ public class Server {
             }
             String x = sb.toString();
            //might seperated by someother form
-            String[] R = x.split(" ");
+            /*  String[] R = x.split(" ");
             for(int i=0;i<R.length;i++)
             {
             	table.refreshTable(R[i]);
-            }
-            
+            }*/
+            table.refreshTable(x);
 
             // create our response String to use in other handler
             sharedResponse = sharedResponse+sb.toString();
@@ -219,7 +219,7 @@ public class Server {
 	}
 	private static void commandExec(String[] player) {
 		// TODO Auto-generated method stub
-		Player p=new Player(Integer.parseInt(player[0]), player[1], player[2], -1);//intialize time as null 
+		Player p= new Player(Integer.parseInt(player[0]), player[1], player[2], 999999999);//intialize time as null 
 		table.addToTable(p);
 		
 	}

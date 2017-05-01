@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -23,6 +25,10 @@ public class Table {
 	 * the map
 	 */
 	public void refreshTable(String json){
+		for(Player p: map.values()){//clear times and DNFs if they existed
+			p.totalTime = 999999999;
+			p.DNF = false;
+		}
 		List<Player> tempList = g.fromJson(json,new TypeToken<List<Player>>(){}.getType());
 		for(Player p: tempList){
 			int key = p.ID;
@@ -31,14 +37,14 @@ public class Table {
 				toMod.totalTime = p.totalTime;//update the time value
 				toMod.DNF = p.DNF;
 				if(p.DNF){
-					toMod.totalTime = 9999999;//larger time than possible on chronotimer guarantees DNFs are sent to end
+					toMod.totalTime = 999999999;//larger time than possible on chronotimer guarantees DNFs are sent to end
 				}
 			}
 			else{
 				p.firstInitial = "N/A";
 				p.lastName ="N/A";
 				if(p.DNF){
-					p.totalTime = 9999999;//larger time than possible on chronotimer guarantees DNFs are sent to end
+					p.totalTime = 999999999;//larger time than possible on chronotimer guarantees DNFs are sent to end
 				}
 				map.put(key, p);//adds new player to list no name only time and bibNum
 				
@@ -88,15 +94,38 @@ public class Table {
 				if(p.DNF){
 					ret +="<td>DNF</td></tr>";
 				}
+				if(p.totalTime == 999999999){
+					ret += "<td>Has not Participated</td></tr>";
+				}
 				else{
-					ret += "<td>"+ p.totalTime + "</td></tr>";
+					ret += "<td>"+ timeFormat(p.totalTime) + "</td></tr>";
 				}
 			}
 		}
 		return ret;
 	}
 	
-	
+
+	 /**
+		 * timeFormat() converts milliseconds into hours minutes seconds and milliseconds. Helper method for export.
+		 * @param duration - In milliseconds
+		 * @return properly formatted time
+		 */
+	public static String timeFormat( long duration ) {
+		    final TimeUnit scale = TimeUnit.MILLISECONDS;
+		    
+		    long days = scale.toDays(duration);
+		    duration -= TimeUnit.HOURS.toMillis(days);
+		    long hours = scale.toHours( duration );
+		    duration -= TimeUnit.HOURS.toMillis( hours );
+		    long minutes = scale.toMinutes( duration );
+		    duration -= TimeUnit.MINUTES.toMillis( minutes );
+		    long seconds = scale.toSeconds( duration );
+		    duration -= TimeUnit.SECONDS.toMillis( seconds );
+		    long millis = scale.toMillis( duration );
+		    
+		    return String.format("%d:%02d:%02d:%03d",hours, minutes, seconds, millis);
+	 }
 	@SuppressWarnings("unchecked")
 	public static List<Player> sort(List<Player> mainList){
 		List<Player>sorted= new ArrayList<>();
