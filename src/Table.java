@@ -91,11 +91,13 @@ public class Table {
 				ret +=("<tr><td>" + p.firstInitial + "</td>"
 				+ "<td>"+ p.lastName + "</td>" 
 				+ "<td>"+ p.ID+ "</td>" );
-				if(p.DNF){
-					ret +="<td>DNF</td></tr>";
-				}
 				if(p.totalTime == 999999999){
-					ret += "<td>Has not Participated</td></tr>";
+					if(p.DNF){
+						ret +="<td>DNF</td></tr>";
+					}
+					else{
+						ret += "<td>Has not Participated</td></tr>";
+					}
 				}
 				else{
 					ret += "<td>"+ timeFormat(p.totalTime) + "</td></tr>";

@@ -118,7 +118,7 @@ public class Server {
     
             // string to hold the result of reading in the request
             StringBuilder sb = new StringBuilder();
-            String postResponse = "notWorking";
+            String postResponse = "JSON received";
             // read the characters from the request byte by byte and build up the sharedResponse
             int nextChar = inputStr.read();
             while (nextChar > -1) {
@@ -126,12 +126,6 @@ public class Server {
                 nextChar=inputStr.read();
             }
             String x = sb.toString();
-           //might seperated by someother form
-            /*  String[] R = x.split(" ");
-            for(int i=0;i<R.length;i++)
-            {
-            	table.refreshTable(R[i]);
-            }*/
             table.refreshTable(x);
 
             // create our response String to use in other handler
