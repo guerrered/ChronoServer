@@ -37,7 +37,7 @@ public class Table {
 				toMod.totalTime = p.totalTime;//update the time value
 				toMod.DNF = p.DNF;
 				if(p.DNF){
-					toMod.totalTime = 999999999;//larger time than possible on chronotimer guarantees DNFs are sent to end
+					toMod.totalTime = 999999998;//larger time than possible on chronotimer guarantees DNFs are sent to end
 				}
 			}
 			else{
@@ -91,16 +91,17 @@ public class Table {
 				ret +=("<tr><td>" + p.firstInitial + "</td>"
 				+ "<td>"+ p.lastName + "</td>" 
 				+ "<td>"+ p.ID+ "</td>" );
-				if(p.totalTime == 999999999){
-					if(p.DNF){
+				if(p.totalTime == 999999999){//not participated 
+						ret += "<td>Has not Participated</td></tr>";
+					
+				}
+				else{
+					if(p.DNF){//dnf get 999999998 so they get sorted before any not participated
 						ret +="<td>DNF</td></tr>";
 					}
 					else{
-						ret += "<td>Has not Participated</td></tr>";
+						ret += "<td>"+ timeFormat(p.totalTime) + "</td></tr>";
 					}
-				}
-				else{
-					ret += "<td>"+ timeFormat(p.totalTime) + "</td></tr>";
 				}
 			}
 		}
