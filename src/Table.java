@@ -25,7 +25,7 @@ public class Table {
 	 * the map
 	 */
 	public void refreshTable(String json){
-		for(Player p: map.values()){//clear times and DNFs if they existed
+		for(Player p: map.values()){//"clear" times and DNFs if they existed
 			p.totalTime = 999999999;
 			p.DNF = false;
 		}
@@ -44,7 +44,7 @@ public class Table {
 				p.firstInitial = "N/A";
 				p.lastName ="N/A";
 				if(p.DNF){
-					p.totalTime = 999999999;//larger time than possible on chronotimer guarantees DNFs are sent to end
+					p.totalTime = 999999998;//larger time than possible on chronotimer guarantees DNFs are sent to end
 				}
 				map.put(key, p);//adds new player to list no name only time and bibNum
 				
