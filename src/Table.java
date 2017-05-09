@@ -106,7 +106,7 @@ public class Table {
 					if(p.DNF){//dnf get 999999998 so they get sorted before any not participated
 						ret +="<td>DNF</td></tr>";
 					}
-					if(p.cancel){
+					else if(p.cancel){
 						ret +="<td>Cancelled</td></tr>";
 					}
 					else{
