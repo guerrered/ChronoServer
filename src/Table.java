@@ -36,6 +36,10 @@ public class Table {
 				Player toMod = map.get(key);
 				toMod.totalTime = p.totalTime;//update the time value
 				toMod.DNF = p.DNF;
+				toMod.cancel = p.cancel;
+				if(p.cancel){
+					toMod.totalTime =999999998;
+				}
 				if(p.DNF){
 					toMod.totalTime = 999999998;//larger time than possible on chronotimer guarantees DNFs are sent to end
 				}
@@ -43,6 +47,9 @@ public class Table {
 			else{
 				p.firstInitial = "N/A";
 				p.lastName ="N/A";
+				if(p.cancel){
+					p.totalTime = 999999998;
+				}
 				if(p.DNF){
 					p.totalTime = 999999998;//larger time than possible on chronotimer guarantees DNFs are sent to end
 				}
@@ -98,6 +105,9 @@ public class Table {
 				else{
 					if(p.DNF){//dnf get 999999998 so they get sorted before any not participated
 						ret +="<td>DNF</td></tr>";
+					}
+					if(p.cancel){
+						ret +="<td>Cancelled</td></tr>";
 					}
 					else{
 						ret += "<td>"+ timeFormat(p.totalTime) + "</td></tr>";
